@@ -1,23 +1,31 @@
 import {useState, useEffect} from 'react'
+import beep from './sounds/beep.wav'
 import './App.css'
 
 function App() {
-
+  // breakLength and sessionLength are measured in minutes
   const [breakLength, setBreakLength] = useState(5)
   const [sessionLength, setSessionLength] = useState(25)
+  // timeLeft is measured in seconds
+  const [timeLeft, setTimeLeft] = useState(sessionLength * 60)
   const [paused, setPaused] = useState(true)
-  // timeLeft state is measured in seconds
-  const [timeLeft, setTimeLeft] = useState(1500)
+  const [sessionOrBreak, setSessionOrBreak] = useState("Session")
+  const [timerLabel, setTimerLabel] = useState(sessionOrBreak + " Timer")
+  let beepSound = document.getElementById("beep")
   // resets break and session length and stops timer
   const resetClickHandler = () => {
     setBreakLength(5)
     setSessionLength(25)
     setTimeLeft(1500)
     setPaused(true)
+    beepSound = document.getElementById("beep")
+    beepSound.pause()
+    beepSound.currentTime = 0
   }
 
   const startStopClickHandler = () => {
     paused ? setPaused(false) : setPaused(true)
+    beepSound.play()
   }
 
   const breakIncrement = () => {
@@ -35,12 +43,14 @@ function App() {
   const sessionIncrement = () => {
     if (sessionLength < 60) {
       setSessionLength(sessionLength + 1)
+      setTimeLeft(timeLeft + 60)
     }
   }
 
   const sessionDecrement = () => {
     if (sessionLength > 1) {
       setSessionLength(sessionLength - 1)
+      setTimeLeft(timeLeft - 60)
     }
   }
 
@@ -57,20 +67,30 @@ function App() {
   let timeLeftFormatted = formatTimeLeft()
 
   useEffect(() => {
-    let timeout
-
+    let interval = null
     if (!paused) {
-      timeout = setTimeout(() => {
+      // function that handles the actual clock timer
+      interval = setInterval(() => {
         if (timeLeft == 0) {
-          setPaused(true)
+          if (sessionOrBreak == "Session") {
+            setSessionOrBreak("Break")
+            setTimeLeft(breakLength * 60)
+            setTimerLabel(sessionOrBreak + " Timer")
+            beepSound.play()
+          } else {
+            setSessionOrBreak("Session")
+            setTimeLeft(sessionLength * 60)
+            setTimerLabel(sessionOrBreak + " Timer")
+          }
         } else if (timeLeft > 0) {
           setTimeLeft(timeLeft - 1)
         }
       }, 1000)
     } else {
-      clearTimeout(timeout)
+      return () => clearInterval(interval)
     }
-  })
+    return () => clearInterval(interval)
+  }, [paused, timeLeft])
 
   return (
     <div id="clock">
@@ -87,7 +107,8 @@ function App() {
         <button id="session-decrement" onClick={sessionDecrement}>-</button>
       </div>
       <div id="clock-wrapper">
-        <p id="timer-label">Session</p>
+        <audio src={beep} type="audio/x-wav" id="beep" class="clip"/>
+        <p id="timer-label">{timerLabel}</p>
         <p id="time-left">{timeLeftFormatted}</p>
         <button id="start_stop" onClick={startStopClickHandler}>>||</button>
         <button id="reset" onClick={resetClickHandler}>reset</button>
