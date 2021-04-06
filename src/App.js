@@ -18,6 +18,8 @@ function App() {
     setSessionLength(25)
     setTimeLeft(1500)
     setPaused(true)
+    setSessionOrBreak("Session")
+    setTimerLabel("Session Timer")
     beepSound = document.getElementById("beep")
     beepSound.pause()
     beepSound.currentTime = 0
@@ -25,7 +27,6 @@ function App() {
 
   const startStopClickHandler = () => {
     paused ? setPaused(false) : setPaused(true)
-    beepSound.play()
   }
 
   const breakIncrement = () => {
@@ -53,7 +54,7 @@ function App() {
       setTimeLeft(timeLeft - 60)
     }
   }
-
+  // helper function that translates timeLeft to mm:ss format
   const formatTimeLeft = () => {
     let minutes = Math.floor(timeLeft / 60)
     let seconds = Math.floor(timeLeft % 60)
@@ -65,29 +66,27 @@ function App() {
   }
 
   let timeLeftFormatted = formatTimeLeft()
-
+  // timer logic
   useEffect(() => {
     let interval = null
     if (!paused) {
       // function that handles the actual clock timer
-      interval = setInterval(() => {
-        if (timeLeft == 0) {
-          if (sessionOrBreak == "Session") {
-            setSessionOrBreak("Break")
-            setTimeLeft(breakLength * 60)
-            setTimerLabel(sessionOrBreak + " Timer")
-            beepSound.play()
-          } else {
-            setSessionOrBreak("Session")
-            setTimeLeft(sessionLength * 60)
-            setTimerLabel(sessionOrBreak + " Timer")
-          }
-        } else if (timeLeft > 0) {
-          setTimeLeft(timeLeft - 1)
+      if (timeLeft == 0) {
+        beepSound.play()
+        if (sessionOrBreak == "Session") {
+          setSessionOrBreak("Break")
+          setTimeLeft(breakLength * 60)
+          setTimerLabel("Break Timer")
+        } else {
+          setSessionOrBreak("Session")
+          setTimeLeft(sessionLength * 60)
+          setTimerLabel("Session Timer")
         }
-      }, 1000)
-    } else {
-      return () => clearInterval(interval)
+      } else {
+        interval = setInterval(() => {
+          setTimeLeft(timeLeft - 1)
+        }, 1000)
+      }
     }
     return () => clearInterval(interval)
   }, [paused, timeLeft])
