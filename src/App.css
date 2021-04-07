@@ -1,7 +1,6 @@
 .button-group {
-  display: flex;
-  flex-flow: column;
-  flex-basis: 50%;
+  width: 50vw;
+  padding-top: 5vh;
 }
 #clock {
   display: flex;
@@ -12,7 +11,5 @@
   background-color: slategrey;
   text-align: center;
 }
-#clock-wrapper {
-  display: flex;
-  flex-flow: column;
+#timer-wrapper {
 }

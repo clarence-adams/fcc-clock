@@ -105,7 +105,7 @@ function App() {
         <p id="session-length">{sessionLength}</p>
         <button id="session-decrement" onClick={sessionDecrement}>-</button>
       </div>
-      <div id="clock-wrapper">
+      <div id="timer-wrapper">
         <audio src={beep} type="audio/x-wav" id="beep" class="clip"/>
         <p id="timer-label">{timerLabel}</p>
         <p id="time-left">{timeLeftFormatted}</p>
