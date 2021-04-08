@@ -1,15 +1,28 @@
 .button-group {
-  width: 50vw;
+  width: 50%;
   padding-top: 5vh;
 }
-#clock {
+body {
+  background-color: slategrey;
+  display: flex;
+  justify-content: center;
+}
+#clock-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: slategrey;
+  height: 40vh;
+  width: 75vw;
   text-align: center;
 }
 #timer-wrapper {
+  padding: 5px 5px 5px 5px;
+  border: 5px solid black;
+  border-radius: 25px;
+}
+#start_stop {
+  padding-right: 5px;
+}
+#reset {
+  padding-left: 5px;
 }

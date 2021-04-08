@@ -1,6 +1,11 @@
 import {useState, useEffect} from 'react'
 import beep from './sounds/beep.wav'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {faAngleUp, faAngleDown, faPlay, faPause, faUndo} from '@fortawesome/free-solid-svg-icons'
 import './App.css'
+
+library.add(faAngleUp, faAngleDown, faPlay, faPause, faUndo)
 
 function App() {
   // breakLength and sessionLength are measured in minutes
@@ -9,6 +14,7 @@ function App() {
   // timeLeft is measured in seconds
   const [timeLeft, setTimeLeft] = useState(sessionLength * 60)
   const [paused, setPaused] = useState(true)
+  const [pauseOrPlay, setPauseOrPlay] = useState("play")
   const [sessionOrBreak, setSessionOrBreak] = useState("Session")
   const [timerLabel, setTimerLabel] = useState(sessionOrBreak + " Timer")
   let beepSound = document.getElementById("beep")
@@ -18,6 +24,7 @@ function App() {
     setSessionLength(25)
     setTimeLeft(1500)
     setPaused(true)
+    setPauseOrPlay("play")
     setSessionOrBreak("Session")
     setTimerLabel("Session Timer")
     beepSound = document.getElementById("beep")
@@ -27,6 +34,7 @@ function App() {
 
   const startStopClickHandler = () => {
     paused ? setPaused(false) : setPaused(true)
+    pauseOrPlay == "play" ? setPauseOrPlay("pause") : setPauseOrPlay("play")
   }
 
   const breakIncrement = () => {
@@ -93,24 +101,26 @@ function App() {
 
   return (
     <div id="clock">
-      <div id="break-label" className="button-group">
-        <p>Break Length</p>
-        <button id="break-increment" onClick={breakIncrement}>+</button>
-        <p id="break-length">{breakLength}</p>
-        <button id="break-decrement" onClick={breakDecrement}>-</button>
-      </div>
-      <div id="session-label" className="button-group">
-        <p>Session Length</p>
-        <button id="session-increment" onClick={sessionIncrement}>+</button>
-        <p id="session-length">{sessionLength}</p>
-        <button id="session-decrement" onClick={sessionDecrement}>-</button>
-      </div>
-      <div id="timer-wrapper">
-        <audio src={beep} type="audio/x-wav" id="beep" class="clip"/>
-        <p id="timer-label">{timerLabel}</p>
-        <p id="time-left">{timeLeftFormatted}</p>
-        <button id="start_stop" onClick={startStopClickHandler}>>||</button>
-        <button id="reset" onClick={resetClickHandler}>reset</button>
+      <div id="clock-wrapper">
+        <div id="break-label" className="button-group">
+          <h3>Break Length</h3>
+          <FontAwesomeIcon icon="angle-up" size="3x" id="break-increment" onClick={breakIncrement} />
+          <h3 id="break-length">{breakLength}</h3>
+          <FontAwesomeIcon icon="angle-down" size="3x" id="break-decrement" onClick={breakDecrement} />
+        </div>
+        <div id="session-label" className="button-group">
+          <h3>Session Length</h3>
+          <FontAwesomeIcon icon="angle-up" size="3x" id="session-increment" onClick={sessionIncrement} />
+          <h3 id="session-length">{sessionLength}</h3>
+          <FontAwesomeIcon icon="angle-down" size="3x" id="session-decrement" onClick={sessionDecrement} />
+        </div>
+        <div id="timer-wrapper">
+          <audio src={beep} type="audio/x-wav" id="beep" class="clip"/>
+          <h2 id="timer-label">{timerLabel}</h2>
+          <h3 id="time-left">{timeLeftFormatted}</h3>
+          <FontAwesomeIcon icon={pauseOrPlay} size="lg" id="start_stop" onClick={startStopClickHandler} />
+          <FontAwesomeIcon icon="undo" size="lg" id="reset" onClick={resetClickHandler} />
+        </div>
       </div>
     </div>
   )
