@@ -18,6 +18,12 @@ function App() {
   const [sessionOrBreak, setSessionOrBreak] = useState("Session")
   const [timerLabel, setTimerLabel] = useState(sessionOrBreak + " Timer")
   let beepSound = document.getElementById("beep")
+  let timerClass = ""
+  if (timeLeft < 60) {
+    timerClass = "timer-end"
+  } else {
+    timerClass = ""
+  }
   // resets break and session length and stops timer
   const resetClickHandler = () => {
     setBreakLength(5)
@@ -117,7 +123,7 @@ function App() {
           <h3 id="session-length">{sessionLength}</h3>
           <i id="session-decrement" onClick={sessionDecrement}><FontAwesomeIcon icon="angle-down" size="3x" /></i>
         </div>
-        <div id="timer-wrapper">
+        <div id="timer-wrapper" className={timerClass}>
           <audio src={beep} type="audio/x-wav" id="beep" class="clip"/>
           <h2 id="timer-label">{timerLabel}</h2>
           <h3 id="time-left">{timeLeftFormatted}</h3>

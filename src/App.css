@@ -1,6 +1,9 @@
 .button-group {
   width: 50%;
 }
+.timer-end {
+  background-color: #90746F !important;
+}
 body {
   background-color: slategrey;
   display: flex;
