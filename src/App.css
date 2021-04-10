@@ -1,28 +1,47 @@
 .button-group {
   width: 50%;
-  padding-top: 5vh;
 }
 body {
   background-color: slategrey;
   display: flex;
   justify-content: center;
 }
+header {
+  position: absolute;
+  top: 0vh;
+  left: 0vw;
+  height: 9vh;
+  width: 100vw;
+  border-bottom: 5px solid black;
+  text-align: center;
+  background-color: #746F90;
+}
+footer {
+  position: absolute;
+  bottom: 0vh;
+}
+#clock {
+  text-align: center;
+}
 #clock-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  height: 40vh;
+  height: 44vh;
   width: 75vw;
+  margin-top: 10vh;
   text-align: center;
 }
 #timer-wrapper {
   padding: 5px 5px 5px 5px;
+  width: 30%;
   border: 5px solid black;
   border-radius: 25px;
+  background-color: #CCD1D7;
 }
 #start_stop {
-  padding-right: 5px;
+  padding-right: 10px;
 }
 #reset {
-  padding-left: 5px;
+  padding-left: 10px;
 }

@@ -101,27 +101,34 @@ function App() {
 
   return (
     <div id="clock">
+      <header>
+        <h1>Pomodoro Timer</h1>
+      </header>
       <div id="clock-wrapper">
         <div id="break-label" className="button-group">
           <h3>Break Length</h3>
-          <FontAwesomeIcon icon="angle-up" size="3x" id="break-increment" onClick={breakIncrement} />
+          <i id="break-increment" onClick={breakIncrement}><FontAwesomeIcon icon="angle-up" size="3x" /></i>
           <h3 id="break-length">{breakLength}</h3>
-          <FontAwesomeIcon icon="angle-down" size="3x" id="break-decrement" onClick={breakDecrement} />
+          <i id="break-decrement" onClick={breakDecrement}><FontAwesomeIcon icon="angle-down" size="3x" /></i>
         </div>
         <div id="session-label" className="button-group">
           <h3>Session Length</h3>
-          <FontAwesomeIcon icon="angle-up" size="3x" id="session-increment" onClick={sessionIncrement} />
+          <i id="session-increment" onClick={sessionIncrement}><FontAwesomeIcon icon="angle-up" size="3x" /></i>
           <h3 id="session-length">{sessionLength}</h3>
-          <FontAwesomeIcon icon="angle-down" size="3x" id="session-decrement" onClick={sessionDecrement} />
+          <i id="session-decrement" onClick={sessionDecrement}><FontAwesomeIcon icon="angle-down" size="3x" /></i>
         </div>
         <div id="timer-wrapper">
           <audio src={beep} type="audio/x-wav" id="beep" class="clip"/>
           <h2 id="timer-label">{timerLabel}</h2>
           <h3 id="time-left">{timeLeftFormatted}</h3>
-          <FontAwesomeIcon icon={pauseOrPlay} size="lg" id="start_stop" onClick={startStopClickHandler} />
-          <FontAwesomeIcon icon="undo" size="lg" id="reset" onClick={resetClickHandler} />
+          <i id="start_stop" onClick={startStopClickHandler}><FontAwesomeIcon icon={pauseOrPlay} size="lg" /></i>
+          <i id="reset" onClick={resetClickHandler}><FontAwesomeIcon icon="undo" size="lg" /></i>
         </div>
       </div>
+      <footer>
+        <p>Beep sound effect by Eponn from freesound.org:
+        https://freesound.org/people/Eponn/sounds/531511/</p>
+      </footer>
     </div>
   )
 }
