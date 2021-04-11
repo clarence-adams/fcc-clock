@@ -16,12 +16,13 @@ header {
   height: 9vh;
   width: 100vw;
   border-bottom: 5px solid black;
-  text-align: center;
   background-color: #746F90;
 }
 footer {
   position: absolute;
   bottom: 0vh;
+  left: 0vw;
+  width: 100vw;
 }
 #clock {
   text-align: center;

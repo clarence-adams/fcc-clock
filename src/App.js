@@ -132,8 +132,7 @@ function App() {
         </div>
       </div>
       <footer>
-        <p>Beep sound effect by Eponn from freesound.org:
-        https://freesound.org/people/Eponn/sounds/531511/</p>
+        <p>Beep sound effect by Eponn from freesound.org: https://freesound.org/people/Eponn/sounds/531511/</p>
       </footer>
     </div>
   )
