@@ -1,3 +1,10 @@
+/* Media query for most mobile device screens */
+@media screen and (max-width: 900px) {
+  #timer-wrapper {
+    width: 33.33% !important;
+  }
+}
+
 .button-group {
   width: 50%;
 }
@@ -8,18 +15,18 @@ body {
   background-color: slategrey;
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
 }
 header {
   position: absolute;
   top: 0vh;
   left: 0vw;
-  height: 9vh;
+  height: calc(2.5em * 2);
   width: 100vw;
   border-bottom: 5px solid black;
   background-color: #746F90;
 }
 footer {
-  position: absolute;
   bottom: 0vh;
   left: 0vw;
   width: 100vw;
@@ -31,14 +38,14 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  height: 44vh;
-  width: 75vw;
-  margin-top: 10vh;
+  width: 100vw;
+  margin: 5vh 0 0 0;
+  padding: calc(2.5em * 2) 0 0 0;
   text-align: center;
 }
 #timer-wrapper {
   padding: 5px 5px 5px 5px;
-  width: 30%;
+  width: 20%;
   border: 5px solid black;
   border-radius: 25px;
   background-color: #C1C8CF;
